@@ -1,5 +1,5 @@
 {
-  "name": "weixin-robot-example",
+  "name": "lifeego_weixin_robot",
   "version": "0.0.3",
   "main": "app.js",
   "dependencies": {
@@ -8,13 +8,21 @@
     "underscore": "~1.4",
     "debug": "~0.7.2",
     "js-yaml": "~2.0.3",
-    "weixin-robot": "~0.3.2",
-    "mongoose" : "*"
+    "weixin-robot": "~0.4.0",
+    "mongoose" : "*",
+    "iconv": ">= 1.2.4",
+    "opencc": "~0.4.1",
+    "xml2js": "~0.2.6",
+    "jade": "~0.27.7",
+    "weixin-robot": "~0.4.1",
+    "memcached": "~0.1.4"
   },
   "devDependencies": {
     "should": "*",
-    "xml2js": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "prettyjson": "*",
+    "commander": "*",
+    "color": "*"
   },
   "engines": {
     "node" : ">=0.8.0",
@@ -30,8 +38,8 @@
     "wechat"
   ],
   "repository": "https://github.com/ktmud/weixin-robot-example.git",
-  "description": "weixin-robot 模块示例",
-  "author": "Jesse Yang <jyyjcc@gmail.com>",
+  "description": "lifeego weixin robot",
+  "author": "xuzhipei <xuzhipei@gmail.com>",
   "contributors": [
     "ktmud <jyyjcc@gmail.com> (http://ktmud.com)",
     "TZ <atian25@qq.com> (http://atian25.iteye.com/)"
