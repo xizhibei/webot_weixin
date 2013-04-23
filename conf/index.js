@@ -1,5 +1,5 @@
 module.exports = {
-  PORT: 3000,
+  PORT: 5000,
   hostname: '127.0.0.1',
   memcached: {
     hosts: '127.0.0.1:11211',

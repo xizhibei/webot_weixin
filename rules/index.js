@@ -12,6 +12,7 @@ module.exports = function(webot) {
 		'image', 
 		'event', 
 		'game',
+		'parse_loc',
 		'takeout',
 		'ordermeal',
 		'train',

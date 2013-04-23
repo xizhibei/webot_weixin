@@ -26,7 +26,7 @@ clear:
 	@clear
 
 test: clear
-	@export DEBUG=webot* && export WX_TOKEN=test123 && ./node_modules/.bin/mocha
+	@export DEBUG=webot:lifeego* && export WX_TOKEN=test123 && ./node_modules/.bin/mocha
 
 cov: lib-cov
 	@EXPRESS_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
