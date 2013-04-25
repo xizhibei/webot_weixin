@@ -52,10 +52,11 @@ module.exports = function(webot) {
   webot.waitRule('order_takeout', function(info) {
     info.text = info.text.replace(/\s/,'');
     var order = info.text.split('+');
-    info.session.order = order;
-    info.session.order_type = 1;
+    if(order.length == 5){
+      info.session.order = order;
+      info.session.order_type = 1;
 
-    var tmp = [
+      var tmp = [
       '请确认您的订单:',
       '种类:     ' + order[0],
       '称呼:     ' + order[1],
@@ -63,10 +64,12 @@ module.exports = function(webot) {
       '地址:     ' + order[3],
       '用餐时间: ' + order[4],
       '回复"1" => 确认 "2" => 重新下单 其他任意内容则为取消订单'
-    ]
-    
-    info.wait('order_confirm');
-    return tmp.join('\n');
+      ]
+
+      info.wait('order_confirm');
+      return tmp.join('\n');
+    }
+    return null;
   });
 
   webot.waitRule('order_confirm', function(info,cb) {
@@ -121,74 +124,77 @@ module.exports = function(webot) {
     }
   });
 
-  webot.waitRule('order_meal', function(info) {
-    info.text = info.text.replace(/\s/,'');
-    var order = info.text.split('+');
+webot.waitRule('order_meal', function(info) {
+  info.text = info.text.replace(/\s/,'');
+  var order = info.text.split('+');
+  if(order.length == 4){
     info.session.order = order;
     info.session.order_type = 2;
 
     var tmp = [
-      '请确认您的订单:',
-      '种类:     ' + order[0],
-      '称呼:     ' + order[1],
-      '联系方式: ' + order[2],
-      '用餐时间: ' + order[3],
-      '回复"1" => 确认 "2" => 重新下单 其他任意内容则为取消订单'
+    '请确认您的订单:',
+    '种类:     ' + order[0],
+    '称呼:     ' + order[1],
+    '联系方式: ' + order[2],
+    '用餐时间: ' + order[3],
+    '回复"1" => 确认 "2" => 重新下单 其他任意内容则为取消订单'
     ]
-    
+
     info.wait('order_confirm');
     return tmp.join('\n');
-  });
+  }
+  return null;
+});
 
-  webot.waitRule('game_guess_number',function(info,cb){
+webot.waitRule('game_guess_number',function(info,cb){
       // 用户不想玩了...
       var retryCount = info.session.guess_count;
       log("Guess count: " + retryCount);
       if (info.text != "好了" && 
-          info.text != "好" &&
-          info.text != "ok") {
+        info.text != "好" &&
+        info.text != "ok") {
         delete info.session.guess_count;
-        return cb(null);
-      }
-      var msg;
-      if (retryCount == 5) {
-        msg = '将你的数字乘以'+ _.random(2,5) +',回复: 好了，或者ok';
-      }else if (retryCount == 4) {
-        msg = '然后将你的数字加上'+_.random(2,5)*1000+',回复: 好了，或者ok';
-      }else if (retryCount == 3) {
-        msg = '然后将你的数字乘以'+_.random(2,5)+',回复: 好了，或者ok';
-      }else if (retryCount == 2) {
-        msg = '然后将你的数字减去'+_.random(2,5)*1000+',回复: 好了，或者ok';
-      }else if (retryCount == 1) {
-        msg = '然后将你的数字乘以'+_.random(2,5)+',回复: 好了，或者ok';
-      }else if (retryCount == 0) {
-        msg = '说实话吧，我猜不到你的数字……谢谢配合[呲牙]';
-      }else{
-        delete info.session.guess_count;
-        return cb(null);
-      }
-      info.session.guess_count--;
-      info.rewait();
-      return cb(null,msg);
+      return cb(null);
+    }
+    var msg;
+    if (retryCount == 5) {
+      msg = '将你的数字乘以'+ _.random(2,5) +',回复: 好了，或者ok';
+    }else if (retryCount == 4) {
+      msg = '然后将你的数字加上'+_.random(2,5)*1000+',回复: 好了，或者ok';
+    }else if (retryCount == 3) {
+      msg = '然后将你的数字乘以'+_.random(2,5)+',回复: 好了，或者ok';
+    }else if (retryCount == 2) {
+      msg = '然后将你的数字减去'+_.random(2,5)*1000+',回复: 好了，或者ok';
+    }else if (retryCount == 1) {
+      msg = '然后将你的数字乘以'+_.random(2,5)+',回复: 好了，或者ok';
+    }else if (retryCount == 0) {
+      msg = '说实话吧，我猜不到你的数字……谢谢配合[呲牙]';
+    }else{
+      delete info.session.guess_count;
+      return cb(null);
+    }
+    info.session.guess_count--;
+    info.rewait();
+    return cb(null,msg);
   });
 
-  webot.set('who_create1', {
-    pattern: /你是.+做的/,
-    handler: '要我把他的微信号告诉你吗？',
-    replies: {
-      Y: '好的，他的微信号xizhibei',
-      N: '可惜了啊，其实他还长得蛮帅的' 
-    }
-  });
-  webot.set('who_create2', {
-    pattern: function(info) {
-      var reg = /(什么人|谁|哪位.*|哪个.*)(给|为|帮)?你?(设置|做|配置|制造|制作|设计|写|创造|生产?)(了|的)?/;
-      return reg.test(info.text) && info.text.replace(reg, '').indexOf('你') === 0;
-    },
-    handler: '一个程序员，要我把他的微信号告诉你吗？',
-    replies: {
-      Y: '好的，他的微信帐号是：xizhibei',
-      N: '可惜了啊，其实他还长得蛮帅的' 
-    }
-  });
+webot.set('who_create1', {
+  pattern: /你是.+做的/,
+  handler: '要我把他的微信号告诉你吗？',
+  replies: {
+    Y: '好的，他的微信号xizhibei',
+    N: '可惜了啊，其实他还长得蛮帅的' 
+  }
+});
+webot.set('who_create2', {
+  pattern: function(info) {
+    var reg = /(什么人|谁|哪位.*|哪个.*)(给|为|帮)?你?(设置|做|配置|制造|制作|设计|写|创造|生产?)(了|的)?/;
+    return reg.test(info.text) && info.text.replace(reg, '').indexOf('你') === 0;
+  },
+  handler: '一个程序员，要我把他的微信号告诉你吗？',
+  replies: {
+    Y: '好的，他的微信帐号是：xizhibei',
+    N: '可惜了啊，其实他还长得蛮帅的' 
+  }
+});
 }
