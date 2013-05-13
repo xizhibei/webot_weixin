@@ -16,6 +16,6 @@ module.exports = {
         log(String(sg) + count);
     });
     info.flag = true;
-    return "感谢您的建议,我记下来了，我会告诉爸爸们你的建议的！";
+    return "感谢您的建议,我记下来了";
   }
 };
