@@ -14,9 +14,14 @@
       6、回复“百度+空格+具体内容”我会帮你百度搜索,
       7、回复“建议+空格+具体内容”给我们提出宝贵的意见或建议
 
+/^外卖/:
+  - 亲，您现在可以网页版http://www.lifeego.com或者手机版http://www.lifeego.com/lifeego.apk去订餐了哦～～～
+
+/^订餐/:
+  - 亲，您现在可以网页版http://www.lifeego.com或者手机版http://www.lifeego.com/lifeego.apk去订餐了哦～～～
+
 /^试用/:
-  - 'http://pan.baidu.com/share/link?shareid=603713&uk=1023854220'
-  - 'http://url.cn/Ge0032'
+  - 'http://www.lifeego.com/lifeego.apk'
 
 /在(吗|么)/:
   - 只要你在我就在哦

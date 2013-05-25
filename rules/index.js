@@ -13,8 +13,6 @@ module.exports = function(webot) {
 		'event', 
 		'game',
 		'parse_loc',
-		'takeout',
-		'ordermeal',
 		'train',
 		'suggestion'
 	].forEach(function(item) {

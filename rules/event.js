@@ -7,7 +7,7 @@ module.exports = {
     if (info.param.event === 'subscribe') {
       return next(null, [ 
           '亲，小笨笨刚刚出生，还什么不懂，如果我答不上来你可以回复“调教+空格+问题+空格+答案”教我哦，',
-          '感谢各位亲们的支持，小笨笨为了响应各位的号召，偷偷的给大家增加新功能——“每日订餐了”，',
+          '订餐功能可以在我们的网页版http://www.lifeego.com或者手机版http://www.lifeego.com/lifeego.apk实现了',
           '菜单：',
           '1、回复“天气”查看今日天气',
           '2、回复“外卖”查看今日推荐外卖商户，继续操作可订外卖哦',
